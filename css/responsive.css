@@ -1,0 +1,256 @@
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   Freelance Web Designer & Developer Portfolio
+   ========================================================================== */
+
+/* Laptop & Medium Desktops (max-width: 1200px) */
+@media (max-width: 1200px) {
+  .hero-headline {
+    font-size: 52px;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-timeline {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .process-timeline::before {
+    display: none;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet (max-width: 991px) */
+@media (max-width: 991px) {
+  .section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  /* Navbar */
+  .nav-menu,
+  .nav-status {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding-top: 110px;
+    padding-bottom: 70px;
+    min-height: auto;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    text-align: center;
+  }
+
+  .hero-badge-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-subtext {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-metrics-strip {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .floating-card-1 {
+    top: -10px;
+    right: 10px;
+  }
+
+  .floating-card-2 {
+    bottom: -10px;
+    left: 10px;
+  }
+
+  /* About Section */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .workflow-strip {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Projects Section */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Case Study Modal */
+  .cs-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-stats-bar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Process Timeline */
+  .process-timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Testimonials */
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Contact Section */
+  .contact-card-wrapper {
+    padding: 36px 24px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Footer */
+  .footer-top {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+/* Mobile Devices (max-width: 767px) */
+@media (max-width: 767px) {
+  :root {
+    --header-height: 70px;
+  }
+
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .hero-headline {
+    font-size: 36px;
+    line-height: 1.15;
+  }
+
+  .hero-subtext {
+    font-size: 16px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    text-align: left;
+  }
+
+  .floating-card {
+    display: none; /* Hide floating badges on small mobile screens to keep browser mockup clean */
+  }
+
+  .browser-overlay-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-stats-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-scroll-body {
+    padding: 20px;
+  }
+
+  .modal-header {
+    padding: 18px 20px;
+  }
+
+  .modal-footer {
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modal-nav-links {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .simulator-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .device-switchers {
+    justify-content: center;
+  }
+}

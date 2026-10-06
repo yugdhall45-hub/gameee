@@ -1,0 +1,13 @@
+# Dependencies & Runtime
+node_modules/
+.vscode/
+.idea/
+*.log
+
+# OS Metadata
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Scratch files
+scratch/
