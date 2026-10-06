@@ -1,0 +1,118 @@
+/**
+ * Voyager - Main Cosmic Design System
+ * Deep obsidian palettes, glassmorphic HUD overlays, and futuristic typography.
+ */
+
+:root {
+  --bg-space: #060814;
+  --bg-panel: rgba(13, 17, 38, 0.78);
+  --bg-panel-border: rgba(76, 201, 240, 0.28);
+  --bg-panel-glow: rgba(76, 201, 240, 0.12);
+
+  --accent-cyan: #4cc9f0;
+  --accent-gold: #ffd166;
+  --accent-green: #06d6a0;
+  --accent-purple: #9d4edd;
+  --accent-red: #e63946;
+  --text-primary: #f8f9fa;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  --font-display: 'Plus Jakarta Sans', var(--font-sans);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-space);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  touch-action: none;
+}
+
+#game-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: block;
+}
+
+/* Glassmorphic Panel Container */
+.glass-panel {
+  background: var(--bg-panel);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--bg-panel-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), 0 0 16px var(--bg-panel-glow);
+  border-radius: 12px;
+}
+
+/* Cosmic Button */
+.btn-cosmic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #060814;
+  background: linear-gradient(135deg, var(--accent-cyan), #4361ee);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(76, 201, 240, 0.45);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-cosmic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(76, 201, 240, 0.7);
+  background: linear-gradient(135deg, #70d6ff, var(--accent-cyan));
+}
+
+.btn-cosmic:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+/* Badges */
+.badge-gold {
+  background: rgba(255, 209, 102, 0.18);
+  color: var(--accent-gold);
+  border: 1px solid rgba(255, 209, 102, 0.4);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}

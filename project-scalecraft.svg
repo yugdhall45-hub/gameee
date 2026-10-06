@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sc-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080b12" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#05070c" />
+    </linearGradient>
+    <linearGradient id="sc-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <linearGradient id="sc-card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9" />
+    </linearGradient>
+    <filter id="sc-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="30" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#sc-bg)" />
+  <circle cx="600" cy="180" r="260" fill="#38bdf8" opacity="0.12" filter="url(#sc-glow)" />
+  <circle cx="950" cy="400" r="200" fill="#6366f1" opacity="0.1" filter="url(#sc-glow)" />
+
+  <!-- Mockup Window Frame -->
+  <rect x="70" y="45" width="1060" height="585" rx="16" fill="#0b0f19" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+
+  <!-- Top bar -->
+  <rect x="70" y="45" width="1060" height="50" rx="16" fill="#131929" />
+  <rect x="70" y="78" width="1060" height="17" fill="#131929" />
+  <line x1="70" y1="95" x2="1130" y2="95" stroke="rgba(255,255,255,0.08)" />
+
+  <circle cx="102" cy="70" r="5.5" fill="#ef4444" />
+  <circle cx="120" cy="70" r="5.5" fill="#f59e0b" />
+  <circle cx="138" cy="70" r="5.5" fill="#10b981" />
+
+  <rect x="240" y="56" width="550" height="28" rx="6" fill="#090d15" stroke="rgba(255,255,255,0.06)" />
+  <text x="260" y="75" font-family="'Inter', sans-serif" font-size="12" fill="#94a3b8">https://scalecraft.io/enterprise-growth-suite</text>
+
+  <!-- Website Header inside mockup -->
+  <text x="120" y="145" font-family="'Inter', sans-serif" font-size="20" font-weight="900" fill="#ffffff">Scale<tspan fill="#38bdf8">Craft</tspan></text>
+  <text x="500" y="145" font-family="'Inter', sans-serif" font-size="13" fill="#cbd5e1">Platform</text>
+  <text x="580" y="145" font-family="'Inter', sans-serif" font-size="13" fill="#cbd5e1">Solutions</text>
+  <text x="670" y="145" font-family="'Inter', sans-serif" font-size="13" fill="#cbd5e1">Integrations</text>
+  <text x="770" y="145" font-family="'Inter', sans-serif" font-size="13" fill="#cbd5e1">Pricing</text>
+
+  <rect x="940" y="125" width="140" height="36" rx="8" fill="url(#sc-accent)" />
+  <text x="1010" y="148" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Book a Demo →</text>
+
+  <!-- Hero inside mockup -->
+  <rect x="470" y="195" width="260" height="28" rx="14" fill="rgba(56, 189, 248, 0.12)" stroke="rgba(56, 189, 248, 0.3)" />
+  <text x="600" y="214" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#38bdf8" text-anchor="middle">✨ Next-Gen B2B Growth Infrastructure</text>
+
+  <text x="600" y="275" font-family="'Inter', sans-serif" font-size="38" font-weight="900" fill="#ffffff" text-anchor="middle">Scale Your Revenue Operations</text>
+  <text x="600" y="318" font-family="'Inter', sans-serif" font-size="38" font-weight="900" fill="url(#sc-accent)" text-anchor="middle">Without The Engineering Overhead</text>
+
+  <text x="600" y="358" font-family="'Inter', sans-serif" font-size="15" fill="#94a3b8" text-anchor="middle">The automated data pipeline and conversion engine trusted by 450+ high-growth tech firms.</text>
+
+  <rect x="490" y="385" width="220" height="46" rx="10" fill="url(#sc-accent)" />
+  <text x="600" y="414" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Start 14-Day Free Trial →</text>
+
+  <!-- 3 Bento cards in hero bottom -->
+  <rect x="120" y="465" width="290" height="140" rx="12" fill="url(#sc-card)" stroke="rgba(255,255,255,0.08)" />
+  <text x="145" y="500" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#ffffff">Automated Funnels</text>
+  <text x="145" y="525" font-family="'Inter', sans-serif" font-size="12" fill="#94a3b8">Instant predictive scoring for all incoming enterprise leads.</text>
+  <text x="145" y="575" font-family="'Inter', sans-serif" font-size="24" font-weight="800" fill="#38bdf8">+240% Conv.</text>
+
+  <rect x="450" y="465" width="300" height="140" rx="12" fill="url(#sc-card)" stroke="rgba(255,255,255,0.08)" />
+  <text x="475" y="500" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#ffffff">Realtime Sync</text>
+  <text x="475" y="525" font-family="'Inter', sans-serif" font-size="12" fill="#94a3b8">Bi-directional CRM integration with HubSpot, Salesforce &amp; Stripe.</text>
+  <text x="475" y="575" font-family="'Inter', sans-serif" font-size="24" font-weight="800" fill="#10b981">&lt; 150ms Sync</text>
+
+  <rect x="790" y="465" width="290" height="140" rx="12" fill="url(#sc-card)" stroke="rgba(255,255,255,0.08)" />
+  <text x="815" y="500" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#ffffff">Retention Engine</text>
+  <text x="815" y="525" font-family="'Inter', sans-serif" font-size="12" fill="#94a3b8">Churn mitigation alerts and proactive customer health scoring.</text>
+  <text x="815" y="575" font-family="'Inter', sans-serif" font-size="24" font-weight="800" fill="#a855f7">99.4% NRR</text>
+</svg>

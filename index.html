@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <!-- Primary SEO Tags -->
+  <title>VOYAGER: Interstellar Odyssey — Browser Space Exploration Game</title>
+  <meta name="description" content="Pilot the historic Voyager spacecraft across the solar system and into interstellar space. Harness planetary gravity assists, collect telemetry, and submit your mission logs to the global leaderboard." />
+  <meta name="keywords" content="Voyager, browser game, space simulator, html5 canvas, gravity assist, space exploration, firebase leaderboard" />
+  <meta name="author" content="Google Antigravity Voyager Team" />
+  <meta name="theme-color" content="#060814" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="VOYAGER: Interstellar Odyssey" />
+  <meta property="og:description" content="Pilot the historic Voyager probe across deep space. Harness Jupiter and Saturn gravity assists to reach the interstellar medium!" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts: Inter, JetBrains Mono, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Game Stylesheets -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/hud.css" />
+  <link rel="stylesheet" href="css/modals.css" />
+  <link rel="stylesheet" href="css/touch-controls.css" />
+
+  <!-- Firebase v10 Compat CDN for zero-build browser compatibility -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+  <!-- Screen-reader accessible semantic header -->
+  <header class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">
+    <h1>VOYAGER: Interstellar Odyssey Browser Video Game</h1>
+  </header>
+
+  <!-- =====================================================================
+       1. MAIN 60FPS GRAPHICS CANVAS
+       ===================================================================== -->
+  <canvas id="game-canvas" aria-label="Voyager Space Simulation Viewport"></canvas>
+
+  <!-- =====================================================================
+       2. HEADS-UP DISPLAY (HUD) TELEMETRY OVERLAY
+       ===================================================================== -->
+  <main id="hud-overlay">
+    <!-- Top Telemetry Ribbon -->
+    <div class="hud-top-bar">
+      <!-- Sector Info -->
+      <div class="glass-panel sector-card">
+        <div class="sector-title" id="hud-sector-title">Sector I: Asteroid Belt</div>
+        <div class="sector-subtitle" id="hud-sector-subtitle">Inner Solar System Boundary</div>
+      </div>
+
+      <!-- Distance & Score Telemetry -->
+      <div class="telemetry-group">
+        <div class="glass-panel telemetry-card">
+          <span class="telemetry-label">Trajectory Traveled</span>
+          <span class="telemetry-value value-glow" id="hud-distance">0.00 AU</span>
+        </div>
+
+        <div class="glass-panel telemetry-card">
+          <span class="telemetry-label">Scientific Telemetry</span>
+          <div style="display: flex; align-items: center;">
+            <span class="telemetry-value" id="hud-score">0</span>
+            <span class="multiplier-pill" id="hud-multiplier" style="display: none;">x1.0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="hud-actions">
+        <button id="btn-hud-leaderboard" class="btn-icon" aria-label="Open Leaderboard" title="Global Leaderboard">🏆</button>
+        <button id="btn-hud-mute" class="btn-icon" aria-label="Toggle Audio" title="Mute Audio">🔊</button>
+        <button id="btn-hud-pause" class="btn-icon" aria-label="Pause Simulation" title="Pause Game">⏸️</button>
+      </div>
+    </div>
+
+    <!-- 360-degree Radar Scanner Mini-Map -->
+    <div class="radar-container" aria-label="Deep Space Radar Scanner">
+      <canvas id="radar-canvas" width="130" height="130"></canvas>
+    </div>
+
+    <!-- Center Floating Toast Container -->
+    <div id="toast-container" aria-live="polite"></div>
+
+    <!-- Bottom Status Gauges (Vitals) -->
+    <div class="hud-bottom-bar">
+      <div class="glass-panel vitals-panel">
+        <!-- Hull Integrity -->
+        <div class="gauge-row">
+          <div class="gauge-header">
+            <span class="gauge-label">🛡️ Spacecraft Hull</span>
+            <span class="gauge-pct" id="hud-hull-pct">100%</span>
+          </div>
+          <div class="gauge-track">
+            <div class="gauge-fill fill-hull" id="hud-hull-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <!-- RTG Power Battery -->
+        <div class="gauge-row">
+          <div class="gauge-header">
+            <span class="gauge-label">⚡ RTG Power Reserves</span>
+            <span class="gauge-pct" id="hud-energy-pct">100%</span>
+          </div>
+          <div class="gauge-track">
+            <div class="gauge-fill fill-energy" id="hud-energy-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       3. RESPONSIVE MOBILE/TABLET VIRTUAL CONTROLS
+       ===================================================================== -->
+  <div id="touch-controls-container">
+    <!-- Left Hand: Steering -->
+    <div class="touch-cluster">
+      <button id="btn-touch-left" class="touch-btn" aria-label="Steer Left">◀</button>
+      <button id="btn-touch-right" class="touch-btn" aria-label="Steer Right">▶</button>
+    </div>
+
+    <!-- Right Hand: Thrusters -->
+    <div class="touch-cluster">
+      <button id="btn-touch-boost" class="touch-btn touch-btn-boost" aria-label="Overdrive Boost">⚡</button>
+      <button id="btn-touch-thrust" class="touch-btn touch-btn-main" aria-label="Main Thruster">▲</button>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       4. MODAL SCREEN OVERLAYS
+       ===================================================================== -->
+
+  <!-- A. START EXPEDITION MODAL -->
+  <div id="modal-start" class="modal-backdrop">
+    <div class="glass-panel modal-content">
+      <div class="modal-title-group">
+        <span class="modal-badge">NASA JPL DEEP SPACE NETWORK</span>
+        <h2 class="modal-title">VOYAGER</h2>
+        <p class="modal-subtitle">
+          Command humanity's greatest interstellar probe. Navigate the treacherous asteroid belt, harness gravitational slingshots around Jupiter and Saturn, and reach the Heliopause.
+        </p>
+      </div>
+
+      <div class="controls-guide">
+        <div class="control-item">
+          <span>Main Ion Thruster</span>
+          <span class="kbd-badge">W / ▲ / Touch ▲</span>
+        </div>
+        <div class="control-item">
+          <span>Attitude Gyro Steering</span>
+          <span class="kbd-badge">A / D / ◀ ▶</span>
+        </div>
+        <div class="control-item">
+          <span>Overdrive Boost</span>
+          <span class="kbd-badge">Space / Touch ⚡</span>
+        </div>
+        <div class="control-item">
+          <span>Gravity Assist Slingshot</span>
+          <span class="kbd-badge">Orbit Planetary Horizon</span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-launch-game" class="btn-cosmic">🚀 Launch Expedition</button>
+        <button id="btn-open-leaderboard" class="btn-cosmic btn-secondary">🏆 Leaderboard</button>
+        <button id="btn-how-to-play" class="btn-cosmic btn-secondary">📖 Guide</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. HOW TO PLAY / MISSION BRIEFING MODAL -->
+  <div id="modal-how-to-play" class="modal-backdrop hidden">
+    <div class="glass-panel modal-content">
+      <div class="modal-title-group">
+        <span class="modal-badge">FLIGHT MANUAL</span>
+        <h2 class="modal-title">Mission Briefing</h2>
+      </div>
+
+      <div class="controls-guide">
+        <div style="font-size: 13px; line-height: 1.6; color: var(--text-muted); display: flex; flex-direction: column; gap: 10px;">
+          <p>🌟 <strong>Newtonian Flight</strong>: Space has subtle inertia. Use counter-thrust or steer smoothly to preserve trajectory.</p>
+          <p>🪐 <strong>Planetary Gravity Assists</strong>: Approach massive worlds like Jupiter and Saturn to slingshot your probe with high-velocity boosts and bonus science score.</p>
+          <p>📀 <strong>Golden Records & Telemetry</strong>: Collect golden records and scientific data packets to build high-score combo multipliers.</p>
+          <p>⚡ <strong>RTG Power Management</strong>: Thrusters drain battery reserves. When not firing engines, solar panels and RTG cells passively replenish energy.</p>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-close-how-to" class="btn-cosmic">Return to Bridge</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. MISSION PAUSED MODAL -->
+  <div id="modal-pause" class="modal-backdrop hidden">
+    <div class="glass-panel modal-content" style="max-width: 420px; text-align: center;">
+      <span class="modal-badge">TELEMETRY SUSPENDED</span>
+      <h2 class="modal-title">Paused</h2>
+      <p class="modal-subtitle">Flight trajectory calculations frozen.</p>
+      <div class="modal-actions" style="margin-top: 10px;">
+        <button id="btn-resume-game" class="btn-cosmic">Resume Mission</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- D. MISSION TERMINATED / GAME OVER DEBRIEF -->
+  <div id="modal-gameover" class="modal-backdrop hidden">
+    <div class="glass-panel modal-content">
+      <div class="modal-title-group">
+        <span class="modal-badge" style="color: var(--accent-red); border-color: rgba(230,57,70,0.4); background: rgba(230,57,70,0.1);">MISSION TERMINATED</span>
+        <h2 class="modal-title">Signal Lost</h2>
+        <p class="modal-subtitle" id="gameover-reason">Critical hull compromise detected.</p>
+      </div>
+
+      <!-- Debrief Stats Bento Grid -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-box-label">Science Telemetry</span>
+          <span class="stat-box-val" id="gameover-stat-score">0</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Distance Traveled</span>
+          <span class="stat-box-val" id="gameover-stat-distance">0.00 AU</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Golden Records</span>
+          <span class="stat-box-val" id="gameover-stat-records">0</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Gravity Assists</span>
+          <span class="stat-box-val" id="gameover-stat-assists">0</span>
+        </div>
+      </div>
+
+      <!-- Callsign Submission Form -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label for="input-callsign-gameover" style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--text-muted);">
+          Register Flight Callsign (Leaderboard)
+        </label>
+        <input id="input-callsign-gameover" class="callsign-input" type="text" maxlength="14" value="VOYAGER-PROBE" placeholder="ENTER CALLSIGN" />
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-submit-gameover" class="btn-cosmic">Submit Log &amp; Re-Launch</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- E. INTERSTELLAR VICTORY MODAL -->
+  <div id="modal-victory" class="modal-backdrop hidden">
+    <div class="glass-panel modal-content" style="border-color: rgba(255, 209, 102, 0.4); box-shadow: 0 0 35px rgba(255, 209, 102, 0.3);">
+      <div class="modal-title-group">
+        <span class="modal-badge badge-gold">HISTORIC MILESTONE REACHED</span>
+        <h2 class="modal-title" style="color: var(--accent-gold);">INTERSTELLAR HORIZON</h2>
+        <p class="modal-subtitle">
+          Voyager has pierced the solar wind heliopause and entered pristine interstellar space. Humanity's golden record is drifting among the stars forever.
+        </p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-box-label">Final Science Score</span>
+          <span class="stat-box-val" style="color: var(--accent-gold);" id="victory-stat-score">0</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Interstellar Distance</span>
+          <span class="stat-box-val" style="color: var(--accent-gold);" id="victory-stat-distance">0.00 AU</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label for="input-callsign-victory" style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--text-muted);">
+          Register Interstellar Pilot
+        </label>
+        <input id="input-callsign-victory" class="callsign-input" type="text" maxlength="14" value="INTERSTELLAR-1" />
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-submit-victory" class="btn-cosmic" style="background: linear-gradient(135deg, #ffd166, #f39c12);">
+          Record In Interstellar Archives
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- F. GLOBAL LEADERBOARD MODAL -->
+  <div id="modal-leaderboard" class="modal-backdrop hidden">
+    <div class="glass-panel modal-content" style="max-width: 650px;">
+      <div class="modal-title-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <span class="modal-badge">GLOBAL DEEP SPACE ARCHIVES</span>
+          <div id="cloud-status-indicator" class="cloud-status-pill">● CHECKING CLOUD...</div>
+        </div>
+        <h2 class="modal-title">Expedition Rankings</h2>
+      </div>
+
+      <!-- Rankings Table Container -->
+      <div style="max-height: 380px; overflow-y: auto;">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Callsign</th>
+              <th>Telemetry Pts</th>
+              <th>Distance</th>
+              <th>Sector Reached</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-tbody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-close-leaderboard" class="btn-cosmic">Close Archives</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Bootstrap Entrypoint -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
