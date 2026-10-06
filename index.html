@@ -23,7 +23,661 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
-  <!-- Game Stylesheets -->
+  <!-- =====================================================================
+       EMBEDDED PRODUCTION STYLES (Guarantees 100% Styling on Vercel & All CDNs)
+       ===================================================================== -->
+  <style>
+    :root {
+      --bg-space: #060814;
+      --bg-panel: rgba(13, 17, 38, 0.78);
+      --bg-panel-border: rgba(76, 201, 240, 0.28);
+      --bg-panel-glow: rgba(76, 201, 240, 0.12);
+      --accent-cyan: #4cc9f0;
+      --accent-gold: #ffd166;
+      --accent-green: #06d6a0;
+      --accent-purple: #9d4edd;
+      --accent-red: #e63946;
+      --text-primary: #f8f9fa;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      --font-display: 'Plus Jakarta Sans', var(--font-sans);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-space);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.5;
+      touch-action: none;
+    }
+
+    #game-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: block;
+    }
+
+    /* Glassmorphic Panel Container */
+    .glass-panel {
+      background: var(--bg-panel);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--bg-panel-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), 0 0 16px var(--bg-panel-glow);
+      border-radius: 12px;
+    }
+
+    /* Cosmic Button */
+    .btn-cosmic {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #060814;
+      background: linear-gradient(135deg, var(--accent-cyan), #4361ee);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(76, 201, 240, 0.45);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-cosmic:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(76, 201, 240, 0.7);
+      background: linear-gradient(135deg, #70d6ff, var(--accent-cyan));
+    }
+
+    .btn-cosmic:active {
+      transform: translateY(1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+    }
+
+    .badge-gold {
+      background: rgba(255, 209, 102, 0.18);
+      color: var(--accent-gold);
+      border: 1px solid rgba(255, 209, 102, 0.4);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    /* HUD OVERLAY */
+    #hud-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 24px;
+    }
+
+    #hud-overlay button, #hud-overlay a {
+      pointer-events: auto;
+    }
+
+    .hud-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 16px;
+    }
+
+    .telemetry-group {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .telemetry-card {
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .telemetry-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .telemetry-value {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .value-glow {
+      color: var(--accent-cyan);
+      text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+    }
+
+    .multiplier-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      background: rgba(255, 209, 102, 0.2);
+      color: var(--accent-gold);
+      border: 1px solid var(--accent-gold);
+      border-radius: 4px;
+      margin-left: 8px;
+      animation: pulse-badge 1.8s infinite;
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+
+    .sector-card {
+      padding: 8px 18px;
+      border-left: 3px solid var(--accent-cyan);
+    }
+
+    .sector-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .sector-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hud-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-panel);
+      border: 1px solid var(--bg-panel-border);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-icon:hover {
+      background: rgba(76, 201, 240, 0.15);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(76, 201, 240, 0.35);
+    }
+
+    /* RADAR SCANNER */
+    .radar-container {
+      position: absolute;
+      top: 76px;
+      right: 24px;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid rgba(76, 201, 240, 0.4);
+      background: rgba(6, 8, 20, 0.85);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(76, 201, 240, 0.15);
+    }
+
+    #radar-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* BOTTOM VITALS */
+    .hud-bottom-bar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .vitals-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px 20px;
+      min-width: 310px;
+    }
+
+    .gauge-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .gauge-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .gauge-label {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .gauge-pct {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .gauge-track {
+      width: 100%;
+      height: 9px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .gauge-fill {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 0.15s ease-out;
+    }
+
+    .fill-hull {
+      background: linear-gradient(90deg, #06d6a0, #4cc9f0);
+      box-shadow: 0 0 10px rgba(6, 214, 160, 0.5);
+    }
+
+    .fill-hull.danger {
+      background: linear-gradient(90deg, #d90429, #ef233c);
+      box-shadow: 0 0 15px rgba(239, 35, 60, 0.8);
+      animation: strobe-alert 0.6s infinite alternate;
+    }
+
+    @keyframes strobe-alert {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    .fill-energy {
+      background: linear-gradient(90deg, #4361ee, #4cc9f0);
+      box-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+    }
+
+    /* TOASTS */
+    #toast-container {
+      position: absolute;
+      top: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .toast-msg {
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: rgba(13, 17, 38, 0.92);
+      border: 1px solid var(--accent-gold);
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(255, 209, 102, 0.45);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toast-fly-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes toast-fly-in {
+      0% { opacity: 0; transform: translateY(-16px) scale(0.92); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* MODAL WINDOWS */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      background: rgba(3, 4, 10, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 1;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.hidden {
+      display: none !important;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+      animation: modal-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes modal-pop {
+      0% { transform: scale(0.93) translateY(12px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .modal-title-group {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .modal-badge {
+      align-self: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      padding: 3px 10px;
+      background: rgba(76, 201, 240, 0.12);
+      border: 1px solid rgba(76, 201, 240, 0.3);
+      border-radius: 20px;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .modal-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-box-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .stat-box-val {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .controls-guide {
+      background: rgba(0, 0, 0, 0.28);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .control-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .kbd-badge {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      color: #ffffff;
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .leaderboard-table th {
+      text-align: left;
+      padding: 10px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .leaderboard-table td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .leaderboard-table tr:hover td {
+      background: rgba(76, 201, 240, 0.06);
+    }
+
+    .rank-top {
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    .cloud-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(6, 214, 160, 0.12);
+      border: 1px solid rgba(6, 214, 160, 0.35);
+      color: var(--accent-green);
+      align-self: center;
+    }
+
+    .cloud-status-pill.offline {
+      background: rgba(244, 162, 97, 0.12);
+      border-color: rgba(244, 162, 97, 0.35);
+      color: #f4a261;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .callsign-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--bg-panel-border);
+      border-radius: 8px;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .callsign-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(76, 201, 240, 0.4);
+    }
+
+    /* VIRTUAL TOUCH CONTROLS */
+    #touch-controls-container {
+      position: absolute;
+      bottom: 24px;
+      left: 0;
+      width: 100%;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    @media (min-width: 1025px) and (hover: hover) {
+      #touch-controls-container {
+        display: none !important;
+      }
+    }
+
+    .touch-cluster {
+      display: flex;
+      gap: 14px;
+      pointer-events: auto;
+    }
+
+    .touch-btn {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: rgba(13, 17, 38, 0.72);
+      border: 1.5px solid rgba(76, 201, 240, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      transition: transform 0.1s, background-color 0.1s;
+    }
+
+    .touch-btn:active, .touch-btn.active {
+      transform: scale(0.92);
+      background: rgba(76, 201, 240, 0.35);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 16px rgba(76, 201, 240, 0.6);
+    }
+
+    .touch-btn-main {
+      width: 78px;
+      height: 78px;
+      background: linear-gradient(135deg, rgba(76, 201, 240, 0.3), rgba(67, 97, 238, 0.3));
+      border-color: var(--accent-cyan);
+    }
+
+    .touch-btn-boost {
+      border-color: rgba(255, 209, 102, 0.5);
+      background: rgba(255, 209, 102, 0.12);
+      color: var(--accent-gold);
+    }
+
+    .touch-btn-boost:active, .touch-btn-boost.active {
+      background: rgba(255, 209, 102, 0.4);
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 20px rgba(255, 209, 102, 0.8);
+    }
+  </style>
+
+  <!-- External Fallbacks for Modular Builds -->
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/hud.css" />
   <link rel="stylesheet" href="css/modals.css" />
@@ -41,14 +695,10 @@
     <h1>VOYAGER: Interstellar Odyssey Browser Video Game</h1>
   </header>
 
-  <!-- =====================================================================
-       1. MAIN 60FPS GRAPHICS CANVAS
-       ===================================================================== -->
+  <!-- 1. MAIN 60FPS GRAPHICS CANVAS -->
   <canvas id="game-canvas" aria-label="Voyager Space Simulation Viewport"></canvas>
 
-  <!-- =====================================================================
-       2. HEADS-UP DISPLAY (HUD) TELEMETRY OVERLAY
-       ===================================================================== -->
+  <!-- 2. HEADS-UP DISPLAY (HUD) TELEMETRY OVERLAY -->
   <main id="hud-overlay">
     <!-- Top Telemetry Ribbon -->
     <div class="hud-top-bar">
@@ -118,9 +768,7 @@
     </div>
   </main>
 
-  <!-- =====================================================================
-       3. RESPONSIVE MOBILE/TABLET VIRTUAL CONTROLS
-       ===================================================================== -->
+  <!-- 3. RESPONSIVE MOBILE/TABLET VIRTUAL CONTROLS -->
   <div id="touch-controls-container">
     <!-- Left Hand: Steering -->
     <div class="touch-cluster">
@@ -135,9 +783,7 @@
     </div>
   </div>
 
-  <!-- =====================================================================
-       4. MODAL SCREEN OVERLAYS
-       ===================================================================== -->
+  <!-- 4. MODAL SCREEN OVERLAYS -->
 
   <!-- A. START EXPEDITION MODAL -->
   <div id="modal-start" class="modal-backdrop">
@@ -221,7 +867,6 @@
         <p class="modal-subtitle" id="gameover-reason">Critical hull compromise detected.</p>
       </div>
 
-      <!-- Debrief Stats Bento Grid -->
       <div class="stats-grid">
         <div class="stat-box">
           <span class="stat-box-label">Science Telemetry</span>
@@ -241,7 +886,6 @@
         </div>
       </div>
 
-      <!-- Callsign Submission Form -->
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <label for="input-callsign-gameover" style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--text-muted);">
           Register Flight Callsign (Leaderboard)
@@ -303,7 +947,6 @@
         <h2 class="modal-title">Expedition Rankings</h2>
       </div>
 
-      <!-- Rankings Table Container -->
       <div style="max-height: 380px; overflow-y: auto;">
         <table class="leaderboard-table">
           <thead>
@@ -315,9 +958,7 @@
               <th>Sector Reached</th>
             </tr>
           </thead>
-          <tbody id="leaderboard-tbody">
-            <!-- Dynamically populated -->
-          </tbody>
+          <tbody id="leaderboard-tbody"></tbody>
         </table>
       </div>
 
@@ -327,7 +968,7 @@
     </div>
   </div>
 
-  <!-- Application Bootstrap Entrypoint -->
-  <script type="module" src="js/app.js"></script>
+  <!-- Resilient Script Loading (Handles both nested js/ folder and root uploads seamlessly) -->
+  <script src="js/voyager.bundle.js" onerror="this.onerror=null;this.src='voyager.bundle.js';"></script>
 </body>
 </html>

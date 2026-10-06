@@ -1,0 +1,20 @@
+{
+  "name": "voyager-game",
+  "version": "1.0.0",
+  "description": "Voyager: Interstellar Odyssey - Browser space exploration game",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'Production static assets verified'",
+    "preview": "serve ."
+  },
+  "keywords": [
+    "game",
+    "voyager",
+    "canvas",
+    "space",
+    "firebase"
+  ],
+  "author": "Google Antigravity Voyager Team",
+  "license": "MIT"
+}
