@@ -5,6 +5,9 @@
   "main": "index.html",
   "scripts": {
     "start": "serve .",
+    "frontend": "serve .",
+    "backend": "npm --prefix backend start",
+    "backend:dev": "npm --prefix backend run dev",
     "build": "echo 'Production static assets verified'",
     "preview": "serve ."
   },

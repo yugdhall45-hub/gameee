@@ -43,41 +43,43 @@ The project uses an **Event-Driven Architecture (Pub/Sub EventBus)** ensuring co
 ```
 voyager/
 ├── index.html                   # High-DPI canvas mount, HUD overlays, modals
+├── package.json                 # Project scripts (start, frontend, backend, dev)
 ├── firebase.json                # Firebase Hosting configuration
-├── css/
+├── vercel.json                  # Vercel deployment configuration
+│
+├── css/                         # 🎨 FRONTEND: Stylesheets & Design Tokens
 │   ├── main.css                 # Cosmic dark design tokens & glassmorphism
 │   ├── hud.css                  # Telemetry bar, gauges, radar scanner
 │   ├── modals.css               # Briefing, game over, victory & leaderboard modals
 │   └── touch-controls.css       # Responsive virtual on-screen controls
-└── js/
-    ├── config.js                # Game constants, physics parameters, sector definitions
-    ├── app.js                   # Master bootstrap & dependency injection root
-    ├── core/
-    │   ├── EventBus.js          # Decoupled pub/sub message hub
-    │   ├── GameEngine.js        # Fixed-timestep loop & parallax starfield renderer
-    │   ├── StateManager.js      # Finite State Machine (MENU, PLAYING, PAUSED, GAMEOVER)
-    │   └── InputManager.js      # Unified keyboard & touch controller
-    ├── entities/
-    │   ├── Entity.js            # Base game object
-    │   ├── EntityManager.js     # Spatial culling & lifecycle pool
-    │   ├── Probe.js             # Voyager spacecraft model & flight physics
-    │   ├── CelestialBody.js     # Planets with real gravity well calculations
-    │   ├── Hazard.js            # Procedural asteroids & space debris
-    │   ├── Collectible.js       # Golden records, telemetry & power cells
-    │   └── ParticleSystem.js    # Thruster plumes, explosions & sparkles
-    ├── systems/
-    │   ├── PhysicsSystem.js     # Gravitational attraction & slingshot calculations
-    │   ├── CollisionSystem.js   # Intersect checks, damage & pickup triggers
-    │   ├── SectorManager.js     # Procedural sector generation & milestones
-    │   ├── ScoreManager.js      # Scoring algorithms & combo multipliers
-    │   └── AudioSystem.js       # Procedural Web Audio API sound generator
-    ├── ui/
-    │   ├── UIManager.js         # Modal coordinator & screen transitions
-    │   ├── HUDView.js           # Real-time telemetry & radar renderer
-    │   └── LeaderboardView.js   # Rankings table & score submission
-    └── services/
-        ├── FirebaseService.js   # Cloud Firestore & Anonymous Auth API
-        └── StorageService.js    # LocalStorage offline persistence adapter
+│
+├── js/                          # ⚙️ FRONTEND: Game Engine & Subsystems
+│   ├── config.js                # Game constants, physics parameters, sector definitions
+│   ├── app.js                   # Master bootstrap & dependency injection root
+│   ├── voyager.bundle.js        # Zero-dependency production bundle
+│   ├── core/                    # Game loop, state machine, event bus, input
+│   ├── entities/                # Probe, planets, asteroids, collectibles, particles
+│   ├── systems/                 # Physics, collision, audio, scoring, sectors
+│   ├── ui/                      # HUD overlay, leaderboard view, modal manager
+│   └── services/                # FirebaseService, StorageService, ApiService
+│
+├── backend/                     # 🛡️ BACKEND: Node.js & Express REST API
+│   ├── server.js                # HTTP server entry point & graceful shutdown
+│   ├── package.json             # Backend dependencies & run scripts
+│   ├── .env.example             # Environment configuration template
+│   ├── README.md                # Backend API documentation
+│   └── src/
+│       ├── app.js               # Express application, CORS & middleware
+│       ├── config/              # Environment config & Firebase Admin SDK
+│       ├── controllers/         # Health, leaderboard & telemetry controllers
+│       ├── middleware/          # Error handling & score validation
+│       └── routes/              # Health, leaderboard & telemetry endpoints
+│
+└── assets/                      # 🌌 ASSETS: Multimedia & Releases
+    ├── archives/                # Packaged distributions (voyager-game.zip)
+    ├── audio/                   # Sound effects, music tracks & synthesis presets
+    ├── images/                  # Vector logos, icons, badges & previews
+    └── README.md                # Asset directory guidelines
 ```
 
 ---

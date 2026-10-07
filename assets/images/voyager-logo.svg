@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cyanGoldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4cc9f0" />
+      <stop offset="50%" stop-color="#ffd166" />
+      <stop offset="100%" stop-color="#06d6a0" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd166" stop-opacity="0.8"/>
+      <stop offset="70%" stop-color="#f39c12" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#060814" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Space Plate -->
+  <rect width="600" height="160" rx="16" fill="#080c1e" stroke="rgba(76, 201, 240, 0.25)" stroke-width="1.5"/>
+
+  <!-- Orbital Ring Graphic -->
+  <ellipse cx="90" cy="80" rx="65" ry="24" fill="none" stroke="rgba(76, 201, 240, 0.45)" stroke-width="2" transform="rotate(-25 90 80)"/>
+  <ellipse cx="90" cy="80" rx="42" ry="15" fill="none" stroke="rgba(255, 209, 102, 0.6)" stroke-width="1.5" transform="rotate(-25 90 80)"/>
+
+  <!-- Sun Glow & Core Planet -->
+  <circle cx="90" cy="80" r="32" fill="url(#sunGlow)"/>
+  <circle cx="90" cy="80" r="18" fill="#ffd166" filter="url(#glowEffect)"/>
+
+  <!-- Voyager Spacecraft Stylized Silhouette -->
+  <path d="M90 45 L94 65 L90 62 L86 65 Z" fill="#ffffff" filter="url(#glowEffect)"/>
+  <line x1="90" y1="52" x2="125" y2="40" stroke="#4cc9f0" stroke-width="2" stroke-dasharray="2 3"/>
+
+  <!-- Typography -->
+  <text x="180" y="74" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-weight="900" font-size="44" fill="url(#cyanGoldGrad)" letter-spacing="4" filter="url(#glowEffect)">
+    VOYAGER
+  </text>
+  <text x="182" y="104" font-family="'JetBrains Mono', monospace" font-weight="600" font-size="14" fill="#94a3b8" letter-spacing="6">
+    INTERSTELLAR ODYSSEY
+  </text>
+
+  <!-- Status Indicator Badge -->
+  <g transform="translate(182, 118)">
+    <circle cx="4" cy="4" r="3" fill="#06d6a0"/>
+    <text x="14" y="7" font-family="'JetBrains Mono', monospace" font-size="9" fill="#06d6a0" letter-spacing="1.5">
+      DEEP SPACE MISSION READY • 60 FPS SIMULATION
+    </text>
+  </g>
+</svg>
