@@ -4,6 +4,19 @@ node_modules/
 .idea/
 *.log
 
+# Build & Dist
+frontend/dist/
+dist/
+.vercel/
+
+# Archives & Temporary
+_archive_voyager_game/
+backend/data/db.json
+
+# Environment
+.env
+.env.local
+
 # OS Metadata
 Thumbs.db
 Desktop.ini

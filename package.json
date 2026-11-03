@@ -1,23 +1,33 @@
 {
-  "name": "voyager-game",
+  "name": "campusconnect-fullstack",
   "version": "1.0.0",
-  "description": "Voyager: Interstellar Odyssey - Browser space exploration game",
-  "main": "index.html",
+  "type": "module",
+  "description": "CampusConnect – Your College, Your Community. Fullstack React & Node.js Platform",
   "scripts": {
-    "start": "serve .",
-    "frontend": "serve .",
-    "backend": "npm --prefix backend start",
-    "backend:dev": "npm --prefix backend run dev",
-    "build": "echo 'Production static assets verified'",
-    "preview": "serve ."
+    "dev": "concurrently -n \"backend,frontend\" -c \"blue,green\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix backend start",
+    "start:prod": "npm run build && npm --prefix backend start"
   },
   "keywords": [
-    "game",
-    "voyager",
-    "canvas",
-    "space",
-    "firebase"
+    "campusconnect",
+    "college",
+    "students",
+    "react",
+    "nodejs",
+    "express"
   ],
-  "author": "Google Antigravity Voyager Team",
-  "license": "MIT"
+  "author": "CampusConnect Team",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

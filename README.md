@@ -1,129 +1,163 @@
-# VOYAGER: Interstellar Odyssey 🚀🪐
+# CampusConnect 🎓🏛️
+> **Your College, Your Community.**
 
-A browser-based space exploration video game inspired by the legendary NASA Voyager interstellar mission.
-
----
-
-## 🌟 Key Highlights & Gameplay Features
-
-- **60 FPS Canvas Simulation**: Smooth Newtonian flight dynamics with realistic inertia, gyro attitude steering, and ion thruster mechanics.
-- **Planetary Gravity Assists**: Slingshot around massive worlds including Mars, Jupiter, Saturn, and Neptune to gain velocity boosts and scientific discovery points.
-- **5 Interstellar Sectors**:
-  1. *Sector I: Asteroid Belt* (Inner Solar System Boundary)
-  2. *Sector II: Jovian Encounter* (Jupiter Flyby & Radiation Belts)
-  3. *Sector III: Saturnian Rings* (Ring Plane Transit & Cassini Division)
-  4. *Sector IV: Outer Ice Giants* (Uranus & Neptune Deep Freeze)
-  5. *Sector V: Heliopause & Interstellar Space* (Terminal Shock & Interstellar Medium)
-- **Scientific Discoveries & Collectibles**:
-  - **Golden Records**: NASA's historic record of Earth with pulsar map glyphs.
-  - **Planetary Telemetry**: Science packets boosting combo score multipliers.
-  - **RTG Power Cells**: Replenish depleted spacecraft battery.
-  - **Repair Nanites**: Restore hull integrity after asteroid impacts.
-- **NASA JPL Heads-Up Display (HUD)**:
-  - Real-time Astronomical Unit (AU) distance tracker.
-  - Telemetry score readout with combo multipliers.
-  - 360-degree radar scanner tracking nearby planets, asteroids, and collectibles.
-  - Hull integrity & RTG energy battery gauges.
-- **Dual Controls**:
-  - **Desktop Keyboard**: `W`/`▲` for Thruster, `A`/`D`/`◀`/`▶` for Steering, `Space` for Overdrive Boost, `P` for Pause, `M` for Mute.
-  - **Mobile & Tablet**: Ergonomic floating virtual touch pads.
-- **Zero-Dependency Procedural Audio**:
-  - Built-in Web Audio API synthesizer generates thruster rumbles, discovery chimes, slingshot whooshes, and impact alarms without external audio files.
-- **Firebase & Offline Persistence**:
-  - Firebase Authentication (Anonymous sign-in for zero-friction access).
-  - Cloud Firestore global expedition leaderboard.
-  - Graceful automatic local cache fallback for instant offline play.
+A modern, student-centric full-stack web platform designed to streamline collegiate life. CampusConnect helps university students manage academic schedules, access verified course notes and solved past year exam papers (PYQs), track assignment deadlines, monitor attendance thresholds, discover campus fests & hackathons, and stay updated with official administrative announcements.
 
 ---
 
-## 🏗️ Architecture & Multi-Agent Modularity
+## 🌟 Key Highlights & Modules
 
-The project uses an **Event-Driven Architecture (Pub/Sub EventBus)** ensuring complete decoupling across 5 independent subsystem tracks:
+### 1. 📚 Smart Academic Study Vault (Notes & PYQs)
+- **Course & Topic Search**: Instant search by Course Code (e.g., `CS301`, `MA201`, `EC402`) or key concepts.
+- **Department & Semester Filters**: Filter study materials across Computer Science, AI, Electronics, Mechanical, and Basic Sciences from Semesters 1 to 8.
+- **Material Types**: Lecture Notes, Solved Past Exam Papers (PYQs), Lab Manuals, and Formula Sheets.
+- **Peer Ratings & Upvotes**: Live upvoting system powered by backend REST endpoints.
+- **Document Previews & Downloads**: In-browser document viewer with realistic academic layouts and simulated PDF download generation.
+- **Upload Modal**: Dedicated form for students and class representatives to contribute new study material.
+
+### 2. 📅 Campus Events & Hackathons Hub
+- **Event Categories**: Tech & Hackathons, Cultural & Fests, Technical Workshops, and Inter-Department Sports.
+- **Real-Time RSVP**: One-click registration toggle that dynamically updates attendee counts on the Node.js backend.
+- **Calendar Integration**: Export `.ics` calendar files directly to Google Calendar, Apple Calendar, or Outlook.
+- **Club Organizer Spotlights**: Event cards detail host societies (GDSC, ACM, Robotics Society, etc.), venue, and seat availability meters.
+
+### 3. ⏱️ Academic Hub & Attendance Suite
+- **Today's Lecture Schedule**: Real-time visual timetable displaying period timings, lecture rooms, faculty names, and a pulsing "Happening Now" status indicator.
+- **Assignment & Submission Tracker**: Interactive to-do list with course tags, due dates, priority labels (High, Medium, Low), and complete/delete toggles.
+- **75% Attendance Calculator**:
+  - Interactive sliders for classes attended and total classes held.
+  - Custom target percentage selector (75%, 80%, 85%).
+  - Real-time bunker algorithm: Calculates how many classes a student can safely skip, or how many consecutive classes they must attend to meet exam eligibility.
+
+### 4. 📢 Campus Announcements & Circulars Board
+- **Official Administrative Feeds**: Notices from the Controller of Examinations, Training & Placement Cell (TPC), Dean of Student Affairs, and Department Heads.
+- **Pinned Urgent Alerts**: Top-level announcement banner for examination datesheets, hall tickets, and campus drives.
+- **Full Circular Reader**: Interactive modal displaying complete official circulars with administrative guidance.
+
+### 5. 👥 Peer Doubts & Student Societies
+- **Doubt Resolution Forum**: Subject-wise discussions where students can ask academic doubts and receive answers from seniors and peers.
+- **Replies & Upvotes**: Threaded responses with instant backend persistence.
+- **Campus Clubs Directory**: Directory of student chapters (GDSC, ACM, Robotics, Literary & Debating) with one-click "Join Club" membership toggles.
+
+---
+
+## 🎨 Design System & Color Palette
+
+Crafted to reflect a clean, authentic university portal aesthetic:
+- **Navy Blue (Primary Brand)**: `#0a1626` / `#0f243e` / `#1b375b`
+- **Light Blue (Action & Accents)**: `#38bdf8` / `#0284c7` / `#e0f2fe`
+- **Clean White (Surfaces)**: `#ffffff` / `#f8fafc`
+- **Typography**: Inter & Poppins typography loaded via Google Fonts.
+- **Icons**: Lucide React vector icons.
+- **Responsive**: 100% mobile, tablet, and desktop friendly with a responsive mobile drawer navigation.
+
+---
+
+## 🏗️ Project Architecture
 
 ```
-voyager/
-├── index.html                   # High-DPI canvas mount, HUD overlays, modals
-├── package.json                 # Project scripts (start, frontend, backend, dev)
-├── firebase.json                # Firebase Hosting configuration
-├── vercel.json                  # Vercel deployment configuration
+CampusConnect/
+├── backend/                      # 🛡️ Node.js & Express REST API
+│   ├── src/
+│   │   ├── server.js             # HTTP server & static frontend host
+│   │   ├── routes/
+│   │   │   └── api.js            # REST endpoints (auth, vault, events, tasks, forum)
+│   │   └── services/
+│   │       └── db.js             # JSON persistence engine
+│   ├── data/
+│   │   ├── initialData.json      # Pre-seeded rich college data
+│   │   └── db.json               # Live persistent database
+│   └── package.json
 │
-├── css/                         # 🎨 FRONTEND: Stylesheets & Design Tokens
-│   ├── main.css                 # Cosmic dark design tokens & glassmorphism
-│   ├── hud.css                  # Telemetry bar, gauges, radar scanner
-│   ├── modals.css               # Briefing, game over, victory & leaderboard modals
-│   └── touch-controls.css       # Responsive virtual on-screen controls
+├── frontend/                     # ⚛️ React 18 + Vite + Tailwind CSS
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Navbar.jsx        # Navigation, alerts, profile pill, mobile drawer
+│   │   │   ├── HeroBanner.jsx    # Tagline, stats counter, quick actions
+│   │   │   ├── StudyVault.jsx    # Notes, PYQs, filters, upvotes, downloads
+│   │   │   ├── CampusEvents.jsx  # Hackathons, fests, RSVP, .ics calendar export
+│   │   │   ├── AcademicHub.jsx   # Class timetable, assignments, attendance calc
+│   │   │   ├── NoticeBoard.jsx   # Circulars, pinned alerts, circular modals
+│   │   │   ├── CommunityAndClubs.jsx # Peer doubts forum & club directory
+│   │   │   ├── Modals.jsx        # Upload note, create event, notice, doubt, profile
+│   │   │   └── Footer.jsx        # Campus helplines, emergency contacts
+│   │   ├── services/
+│   │   │   └── api.js            # Backend API client
+│   │   ├── App.jsx               # Root application state & tab manager
+│   │   ├── main.jsx              # React DOM bootstrap
+│   │   └── index.css             # Tailwind design tokens
+│   ├── vite.config.js            # Vite configuration with API proxy
+│   ├── tailwind.config.js        # Navy & Light Blue theme palette
+│   └── package.json
 │
-├── js/                          # ⚙️ FRONTEND: Game Engine & Subsystems
-│   ├── config.js                # Game constants, physics parameters, sector definitions
-│   ├── app.js                   # Master bootstrap & dependency injection root
-│   ├── voyager.bundle.js        # Zero-dependency production bundle
-│   ├── core/                    # Game loop, state machine, event bus, input
-│   ├── entities/                # Probe, planets, asteroids, collectibles, particles
-│   ├── systems/                 # Physics, collision, audio, scoring, sectors
-│   ├── ui/                      # HUD overlay, leaderboard view, modal manager
-│   └── services/                # FirebaseService, StorageService, ApiService
-│
-├── backend/                     # 🛡️ BACKEND: Node.js & Express REST API
-│   ├── server.js                # HTTP server entry point & graceful shutdown
-│   ├── package.json             # Backend dependencies & run scripts
-│   ├── .env.example             # Environment configuration template
-│   ├── README.md                # Backend API documentation
-│   └── src/
-│       ├── app.js               # Express application, CORS & middleware
-│       ├── config/              # Environment config & Firebase Admin SDK
-│       ├── controllers/         # Health, leaderboard & telemetry controllers
-│       ├── middleware/          # Error handling & score validation
-│       └── routes/              # Health, leaderboard & telemetry endpoints
-│
-└── assets/                      # 🌌 ASSETS: Multimedia & Releases
-    ├── archives/                # Packaged distributions (voyager-game.zip)
-    ├── audio/                   # Sound effects, music tracks & synthesis presets
-    ├── images/                  # Vector logos, icons, badges & previews
-    └── README.md                # Asset directory guidelines
+└── package.json                  # Root orchestration (concurrent dev runner)
 ```
 
 ---
 
-## 🕹️ Controls
+## 🚀 Getting Started
 
-| Action | Desktop Keyboard | Mobile / Tablet Touch |
-| :--- | :--- | :--- |
-| **Main Thruster** | `W` or `ArrowUp` | Right Pad `▲` button |
-| **Reverse Thruster** | `S` or `ArrowDown` | — |
-| **Steer Left** | `A` or `ArrowLeft` | Left Pad `◀` button |
-| **Steer Right** | `D` or `ArrowRight` | Left Pad `▶` button |
-| **Overdrive Boost** | `Spacebar` | Right Pad `⚡` button |
-| **Pause / Resume** | `P` or `Escape` | Top HUD `⏸️` icon |
-| **Mute / Unmute** | `M` | Top HUD `🔊` icon |
+### Prerequisites
+- Node.js (v18 or newer)
+- npm
 
----
+### Running the Full-Stack Application
 
-## ☁️ Firebase Configuration
+From the root directory:
 
-To connect the game to your Firebase project:
-1. Open [`js/app.js`](file:///c:/Users/dhall/New%20folder/js/app.js)
-2. Replace `customFirebaseConfig` with your credentials:
-```javascript
-const customFirebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "...",
-  appId: "..."
-};
-```
-3. Enable **Anonymous Authentication** in the Firebase Console under `Authentication > Sign-in method`.
-4. Enable **Cloud Firestore** under `Firestore Database`.
-
-*Note: If credentials are not configured, Voyager automatically operates in **Local Recovery Mode** via `localStorage` with full leaderboard functionality.*
-
----
-
-## 🚀 Running Locally
-
-Open [`index.html`](file:///c:/Users/dhall/New%20folder/index.html) using any modern web server (e.g. VS Code Live Server, Python HTTP server, or `npx serve .`):
 ```bash
-npx -y serve .
+# 1. Run both Backend & Frontend concurrently in development mode:
+npm run dev
 ```
-Navigate to `http://localhost:3000` (or the reported local port).
+
+- **Frontend (Vite HMR)**: `http://localhost:5173`
+- **Backend (Express API)**: `http://localhost:5000`
+
+### Individual Component Commands
+
+```bash
+# Start Backend only:
+npm run dev:backend
+
+# Start Frontend only:
+npm run dev:frontend
+
+# Build Frontend for Production:
+npm run build
+
+# Start Production Server (Serves built React App + API from port 5000):
+npm run start:prod
+```
+
+---
+
+## 📡 REST API Reference
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/health` | Service health status & uptime |
+| `GET` | `/api/profile` | Current student profile & GPA |
+| `POST` | `/api/auth/login` | Update student profile details |
+| `GET` | `/api/announcements` | Fetch all campus notices & circulars |
+| `POST` | `/api/announcements` | Publish a new administrative circular |
+| `GET` | `/api/resources` | Fetch study notes & PYQs (supports `?search`, `?department`, `?semester`, `?type`) |
+| `POST` | `/api/resources` | Upload new study material / past paper |
+| `POST` | `/api/resources/:id/upvote`| Upvote a helpful resource |
+| `GET` | `/api/events` | Fetch campus events & hackathons |
+| `POST` | `/api/events` | Register a new campus event |
+| `POST` | `/api/events/:id/rsvp` | Toggle student RSVP attendance |
+| `GET` | `/api/tasks` | Fetch student assignment to-dos |
+| `POST` | `/api/tasks` | Add a new assignment deadline |
+| `PATCH`| `/api/tasks/:id/toggle` | Toggle task completion |
+| `DELETE`| `/api/tasks/:id` | Remove an assignment |
+| `GET` | `/api/forum` | Fetch peer discussion & doubts threads |
+| `POST` | `/api/forum` | Post a doubt or query |
+| `POST` | `/api/forum/:id/upvote` | Upvote a discussion thread |
+| `POST` | `/api/forum/:id/reply` | Submit a reply to a doubt thread |
+| `GET` | `/api/clubs` | Fetch student societies & clubs |
+| `POST` | `/api/clubs/:id/toggle` | Join or leave a student club |
+
+---
+
+## 📜 License
+MIT License. Built for university student communities.

@@ -1,0 +1,366 @@
+{
+  "currentUser": {
+    "id": "std_101",
+    "name": "Alex Morgan",
+    "email": "alex.morgan@university.edu",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250",
+    "role": "Student",
+    "department": "Computer Science & Engineering",
+    "semester": "Semester 6",
+    "studentId": "CS2023-8841",
+    "gpa": "3.84",
+    "attendance": "89%",
+    "badges": ["Dean's List", "Hackathon Finalist", "Club Lead"]
+  },
+  "announcements": [
+    {
+      "id": "anc_1",
+      "title": "Spring 2026 Mid-Semester Examination Schedule Announced",
+      "category": "Examination",
+      "priority": "urgent",
+      "date": "2026-11-02",
+      "author": "Controller of Examinations",
+      "summary": "Mid-semester exams begin on Nov 20. The detailed branch-wise date sheet and hall ticket downloads are now active on the portal.",
+      "fileUrl": "#",
+      "pinned": true
+    },
+    {
+      "id": "anc_2",
+      "title": "Campus Placement Drive: Top Tech Firms Visiting Next Month",
+      "category": "Placements",
+      "priority": "high",
+      "date": "2026-11-01",
+      "author": "Training & Placement Cell (TPC)",
+      "summary": "Registrations open for 6th and 8th semester students. Pre-placement talks will be conducted in the Main Auditorium.",
+      "fileUrl": "#",
+      "pinned": true
+    },
+    {
+      "id": "anc_3",
+      "title": "Central University Library 24x7 Reading Room Hours",
+      "category": "Academic",
+      "priority": "normal",
+      "date": "2026-10-30",
+      "author": "Chief Librarian",
+      "summary": "To support exam prep, the central library 3rd floor study halls will remain open 24/7 starting this Monday.",
+      "fileUrl": "#",
+      "pinned": false
+    },
+    {
+      "id": "anc_4",
+      "title": "Call for Papers: National Student Research Symposium 2026",
+      "category": "Research",
+      "priority": "normal",
+      "date": "2026-10-28",
+      "author": "Dean of Research & Innovation",
+      "summary": "Undergraduate and postgraduate students are invited to submit original research papers in AI, IoT, and Clean Energy.",
+      "fileUrl": "#",
+      "pinned": false
+    }
+  ],
+  "resources": [
+    {
+      "id": "res_1",
+      "title": "Data Structures & Algorithms - Complete Handwritten Notes & Code",
+      "courseCode": "CS301",
+      "department": "Computer Science",
+      "semester": 5,
+      "type": "Lecture Notes",
+      "format": "PDF",
+      "size": "8.4 MB",
+      "author": "Prof. S. Ramanujan & Alex M.",
+      "upvotes": 342,
+      "downloads": 1280,
+      "tags": ["Trees", "Graphs", "Dynamic Programming", "Sorting"],
+      "uploadDate": "2026-10-14",
+      "verified": true,
+      "previewUrl": "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": "res_2",
+      "title": "Database Management Systems (DBMS) - 5 Years Solved PYQs (2020-2025)",
+      "courseCode": "CS304",
+      "department": "Computer Science",
+      "semester": 5,
+      "type": "Past Papers (PYQ)",
+      "format": "PDF",
+      "size": "14.2 MB",
+      "author": "Academic Council Student Cell",
+      "upvotes": 289,
+      "downloads": 940,
+      "tags": ["SQL", "Normalization", "ACID", "Transactions", "B+ Trees"],
+      "uploadDate": "2026-10-18",
+      "verified": true,
+      "previewUrl": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": "res_3",
+      "title": "Operating Systems: Concurrency, Deadlocks & Virtual Memory Formula Sheet",
+      "courseCode": "CS302",
+      "department": "Computer Science",
+      "semester": 5,
+      "type": "Formula Sheet",
+      "format": "PDF",
+      "size": "3.1 MB",
+      "author": "Sarah Jenkins (TA)",
+      "upvotes": 215,
+      "downloads": 810,
+      "tags": ["Semaphore", "Paging", "Deadlock Avoidance", "CPU Scheduling"],
+      "uploadDate": "2026-10-22",
+      "verified": true,
+      "previewUrl": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": "res_4",
+      "title": "Digital Signal Processing - Matlab Lab Manual with Sample Outputs",
+      "courseCode": "EC402",
+      "department": "Electronics & Comm.",
+      "semester": 6,
+      "type": "Lab Manual",
+      "format": "PDF",
+      "size": "11.6 MB",
+      "author": "Dr. Keith Vance",
+      "upvotes": 178,
+      "downloads": 520,
+      "tags": ["FFT", "IIR Filters", "FIR", "Z-Transform", "Matlab"],
+      "uploadDate": "2026-10-05",
+      "verified": true,
+      "previewUrl": "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": "res_5",
+      "title": "Engineering Mathematics II - Vector Calculus & ODEs Solved Question Bank",
+      "courseCode": "MA201",
+      "department": "Basic Sciences",
+      "semester": 2,
+      "type": "Past Papers (PYQ)",
+      "format": "PDF",
+      "size": "6.8 MB",
+      "author": "Math Study Circle",
+      "upvotes": 412,
+      "downloads": 2340,
+      "tags": ["Green's Theorem", "Stokes", "Eigenvalues", "Differential Equations"],
+      "uploadDate": "2026-09-29",
+      "verified": true,
+      "previewUrl": "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": "res_6",
+      "title": "Machine Learning Foundations & PyTorch Cheat Sheet",
+      "courseCode": "AI401",
+      "department": "Artificial Intelligence",
+      "semester": 6,
+      "type": "Lecture Notes",
+      "format": "PDF",
+      "size": "5.5 MB",
+      "author": "GDSC AI Track",
+      "upvotes": 350,
+      "downloads": 1100,
+      "tags": ["Backprop", "CNN", "Transformers", "Loss Functions"],
+      "uploadDate": "2026-10-25",
+      "verified": true,
+      "previewUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=600"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt_1",
+      "title": "HackCampus 2026: 36-Hour National Collegiate Hackathon",
+      "category": "Tech & Hackathons",
+      "date": "Nov 15 - 17, 2026",
+      "time": "09:00 AM onwards",
+      "venue": "Innovation Hub, Block C",
+      "organizer": "Google Developer Student Club (GDSC)",
+      "description": "Collaborate, code, and build breakthrough solutions in Generative AI, EdTech, and Sustainability with over $10,000 in prizes and direct mentorship.",
+      "capacity": 250,
+      "attendeesCount": 194,
+      "isRegistered": false,
+      "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=800",
+      "tags": ["Hackathon", "AI", "Cash Prizes", "Mentorship"]
+    },
+    {
+      "id": "evt_2",
+      "title": "Technosphere 2026: Annual University Tech Fest",
+      "category": "Cultural & Fests",
+      "date": "Dec 02 - 04, 2026",
+      "time": "10:00 AM - 09:00 PM",
+      "venue": "University Grounds & Amphitheatre",
+      "organizer": "Student Council & Tech Society",
+      "description": "Our biggest annual festival featuring 30+ robotics battles, drone racing, gaming tournaments, project showcases, and a grand DJ night.",
+      "capacity": 2000,
+      "attendeesCount": 1420,
+      "isRegistered": true,
+      "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=800",
+      "tags": ["Robotics", "Gaming", "Fest", "Concert"]
+    },
+    {
+      "id": "evt_3",
+      "title": "Hands-on Workshop: Building Fullstack Apps with React & Node.js",
+      "category": "Workshops",
+      "date": "Nov 10, 2026",
+      "time": "02:00 PM - 05:30 PM",
+      "venue": "Computer Lab 402, CS Dept",
+      "organizer": "ACM Student Chapter",
+      "description": "Master REST APIs, modern state management, and real-time backend communication with industry engineers.",
+      "capacity": 60,
+      "attendeesCount": 54,
+      "isRegistered": false,
+      "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800",
+      "tags": ["React", "Node.js", "Hands-on", "Free Certificate"]
+    },
+    {
+      "id": "evt_4",
+      "title": "Inter-Department Basketball & Futsal Championship",
+      "category": "Sports",
+      "date": "Nov 22 - 25, 2026",
+      "time": "04:30 PM - 08:00 PM",
+      "venue": "University Sports Complex",
+      "organizer": "Campus Athletics Board",
+      "description": "Cheer on your branch team as CSE, ECE, Mech, and Civil battle it out for the Chancellor's Golden Trophy.",
+      "capacity": 500,
+      "attendeesCount": 380,
+      "isRegistered": false,
+      "image": "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&q=80&w=800",
+      "tags": ["Sports", "Championship", "Inter-Branch"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "tsk_1",
+      "title": "Submit CS301 Graph Algorithms Assignment",
+      "course": "CS301",
+      "deadline": "Tomorrow, 11:59 PM",
+      "completed": false,
+      "priority": "high"
+    },
+    {
+      "id": "tsk_2",
+      "title": "Prepare DBMS ER-Diagram & Schema for Midterm Project",
+      "course": "CS304",
+      "deadline": "Nov 08, 05:00 PM",
+      "completed": false,
+      "priority": "medium"
+    },
+    {
+      "id": "tsk_3",
+      "title": "Review Operating Systems Chapter 7 (Virtual Memory)",
+      "course": "CS302",
+      "deadline": "Nov 10, 10:00 AM",
+      "completed": true,
+      "priority": "low"
+    },
+    {
+      "id": "tsk_4",
+      "title": "Complete Online AI Ethics Quiz on LMS",
+      "course": "AI401",
+      "deadline": "Nov 12, 08:00 PM",
+      "completed": false,
+      "priority": "medium"
+    }
+  ],
+  "forumPosts": [
+    {
+      "id": "frm_1",
+      "author": "Priya Sharma",
+      "department": "CSE, 4th Year",
+      "title": "How to effectively prepare for Amazon & Microsoft on-campus SDE interviews in 2 months?",
+      "content": "Hey everyone! For the upcoming placement cycle, I wanted to share my curated LeetCode top 150 roadmap, system design fundamentals, and mock interview tips that helped our seniors last year. Feel free to ask questions below!",
+      "category": "Placements & Career",
+      "upvotes": 88,
+      "date": "2 hours ago",
+      "replies": [
+        {
+          "id": "rep_1",
+          "author": "Rohan Verma",
+          "content": "Super helpful Priya! Did you focus primarily on Graphs and DP or also low-level design?",
+          "date": "1 hour ago"
+        },
+        {
+          "id": "rep_2",
+          "author": "Alex Morgan",
+          "content": "Thanks for sharing! Would love to team up for mock interviews on weekends.",
+          "date": "35 mins ago"
+        }
+      ]
+    },
+    {
+      "id": "frm_2",
+      "author": "Devansh Gupta",
+      "department": "ECE, 2nd Year",
+      "title": "Need help understanding Op-Amp feedback loops in Analog Circuits (EC202)",
+      "content": "Can someone recommend an intuitive video lecture or professor's notes that break down negative feedback and gain-bandwidth product simply? The textbook equations are getting confusing.",
+      "category": "Academic Doubts",
+      "upvotes": 42,
+      "date": "5 hours ago",
+      "replies": [
+        {
+          "id": "rep_3",
+          "author": "Ananya Nair",
+          "content": "Check out NPTEL lectures by Prof. Nagendra or Razavi's Electronics on YouTube. Also uploaded notes in the Study Vault!",
+          "date": "4 hours ago"
+        }
+      ]
+    },
+    {
+      "id": "frm_3",
+      "author": "Robotics Club Lead",
+      "department": "Mechanical & Mechatronics",
+      "title": "Looking for 2 React/Python devs for Smart India Hackathon campus team",
+      "content": "We have hardware engineers and IoT specialists ready for an automated campus drone parcel delivery prototype. Looking for full-stack wizards to build the tracking dashboard.",
+      "category": "Project Collaboration",
+      "upvotes": 61,
+      "date": "Yesterday",
+      "replies": [
+        {
+          "id": "rep_4",
+          "author": "Karan Mehra",
+          "content": "I have experience with React and WebSockets. Dropped you a message on student email!",
+          "date": "Yesterday"
+        }
+      ]
+    }
+  ],
+  "clubs": [
+    {
+      "id": "clb_1",
+      "name": "Google Developer Student Club (GDSC)",
+      "category": "Technology & Coding",
+      "membersCount": 480,
+      "lead": "Tanvi Rao",
+      "description": "University community for students passionate about Google developer technologies, AI/ML, Cloud, and web development.",
+      "badge": "Active",
+      "joined": true
+    },
+    {
+      "id": "clb_2",
+      "name": "ACM Student Chapter",
+      "category": "Computer Science & Research",
+      "membersCount": 350,
+      "lead": "Aditya Roy",
+      "description": "Fostering algorithmic problem solving, competitive programming, and computing research through weekly contests.",
+      "badge": "Premier",
+      "joined": false
+    },
+    {
+      "id": "clb_3",
+      "name": "Robotics & Automation Society (RAS)",
+      "category": "Hardware & Engineering",
+      "membersCount": 220,
+      "lead": "Sameer Joshi",
+      "description": "Building combat robots, autonomous drones, and smart prosthetic arms for national competitions.",
+      "badge": "Active",
+      "joined": false
+    },
+    {
+      "id": "clb_4",
+      "name": "Literary & Debating Society",
+      "category": "Arts & Expression",
+      "membersCount": 190,
+      "lead": "Maya Sengupta",
+      "description": "Model United Nations (MUN), parliamentary debates, open-mic poetry, and university newsletter publication.",
+      "badge": "Active",
+      "joined": true
+    }
+  ]
+}
+

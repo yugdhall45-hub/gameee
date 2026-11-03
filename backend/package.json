@@ -1,24 +1,17 @@
 {
-  "name": "voyager-backend",
+  "name": "campusconnect-backend",
   "version": "1.0.0",
-  "description": "Backend API server for Voyager: Interstellar Odyssey - High scores, telemetry, and anti-cheat validation",
-  "main": "server.js",
+  "type": "module",
+  "description": "Backend API for CampusConnect - Your College, Your Community",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
   },
-  "keywords": [
-    "voyager",
-    "game-api",
-    "leaderboard",
-    "telemetry",
-    "express"
-  ],
-  "author": "Google Antigravity Voyager Team",
-  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "morgan": "^1.10.0"
   }
 }
